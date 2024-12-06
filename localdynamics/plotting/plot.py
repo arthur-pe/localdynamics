@@ -22,12 +22,12 @@ def get_axes_list(number_axes, axes_3d, figsize=4):
   return fig, axs
 
 
-def get_axes_grid(cols, rows, dpi=100):
+def get_axes_grid(cols, rows, rows_3d=(), dpi=100):
 
-    fig = plt.figure(figsize=(cols*4,rows*4), constrained_layout=True, dpi=dpi)
-    gs = fig.add_gridspec(ncols=cols,nrows=rows)
+    fig = plt.figure(figsize=(cols*4, rows*4), constrained_layout=True, dpi=dpi)
+    gs = fig.add_gridspec(ncols=cols, nrows=rows)
 
-    axs = np.array([[fig.add_subplot(gs[i,j]) for i in range(rows)] for j in range(cols)])
+    axs = np.array([[fig.add_subplot(gs[i, j], projection='3d' if i in rows_3d else None) for i in range(rows)] for j in range(cols)])
 
     return fig, np.array(axs)
 

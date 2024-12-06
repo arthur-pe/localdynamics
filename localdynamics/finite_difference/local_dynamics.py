@@ -102,7 +102,7 @@ def local_dynamics(x: Float[Array, "T N"], dx_dt: Float[Array, "T N"], number_of
     @jax.jit
     def f(y):
         dis = distance_fn(y - x)
-        ids = jnp.argsort(dis)[1:number_of_neighbors + 1]
+        ids = jnp.argsort(dis)[:number_of_neighbors]
         dis = jnp.take_along_axis(dis, ids, axis=-1)
 
         return ids, dis
